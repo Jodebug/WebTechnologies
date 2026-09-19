@@ -71,37 +71,40 @@ header p {
 ------------------------------ */
 
 nav {
-    background-color: #2d2d2d;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+nav {
     display: flex;
-    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
-    flex-wrap: wrap;
-}
-
-nav li {
-    margin: 0;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 8px;
+    background-color: #333;
 }
 
 nav a {
+    flex: 0 0 auto;
     color: white;
     text-decoration: none;
-    display: block;
-    padding: 16px 22px;
-    transition:
-        background-color 0.2s,
-        color 0.2s;
+    white-space: nowrap;
+    padding: 10px 0;
+    font-size: 16px;
 }
 
-nav a:hover {
-    background-color: #f4f1e8;
-    color: #111;
+nav a:hover,
+nav a:focus-visible {
+    background-color: white;
+    color: black;
+}
+
+/* Smaller spacing for mobile screens */
+@media (max-width: 480px) {
+    nav {
+        gap: 8px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
 }
 
 /* -----------------------------
