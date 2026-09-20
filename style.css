@@ -71,7 +71,6 @@ header p {
 ------------------------------ */
 
 nav {
-nav {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -370,5 +369,115 @@ footer p {
 
     nav a {
         transition: none;
+    }
+}
+/* Include padding and borders within element widths */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Allow the main content to fit smaller screens */
+main {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* Navigation: keep all five links on one line */
+nav {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 12px;
+    background-color: #333;
+}
+
+nav a {
+    flex: 0 0 auto;
+    width: auto;
+    margin: 0;
+    padding: 12px 10px;
+    color: white;
+    font-size: 16px;
+    line-height: 1.5;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+nav a:hover,
+nav a:focus-visible {
+    background-color: white;
+    color: black;
+}
+
+nav a:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* Prevent images and videos exceeding the content width */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive embedded YouTube video */
+iframe {
+    display: block;
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: 0;
+}
+
+/* Allow long reference links to wrap */
+main a {
+    overflow-wrap: anywhere;
+}
+
+/* Adjust spacing for mobile screens */
+@media screen and (max-width: 600px) {
+    header {
+        padding: 24px 12px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    main {
+        padding: 16px;
+    }
+
+    nav {
+        gap: 4px;
+        padding: 8px 4px;
+
+        /* Keep links reachable if text is enlarged */
+        justify-content: flex-start;
+        overflow-x: auto;
+    }
+
+    nav a {
+        padding: 12px 4px;
+        font-size: 14px;
+    }
+
+    /* Centre the links when there is spare room */
+    nav a:first-child {
+        margin-left: auto;
+    }
+    nav a:last-child {
+        margin-right: auto;
     }
 }
