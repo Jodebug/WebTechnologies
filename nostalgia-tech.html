@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Share your memories of early web browsers and web technologies.">
+    <title>Nostalgia Tech | Web Technologies</title>
+    <link rel="stylesheet" href="web-technologies.css">
+
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+        <h1>Nostalgia Tech</h1>
+        <p>Remembering the browsers and websites we grew up with</p>
+    </header>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html#history">History</a>
+        <a href="index.html#timeline">Timeline</a>
+        <a href="index.html#references">References</a>
+        <a href="index.html#video">Video</a>
+        <a href="index.html#image">Image</a>
+        <a href="nostalgia-tech.html" aria-current="page">Nostalgia Tech</a>
+    </nav>
+
+    <main id="main-content">
+        <section class="form-container">
+            <h2>Join the Nostalgia Tech newsletter</h2>
+            <p>Tell us about the first browser you used and what you remember about the early Web.</p>
+            <p><strong>Form demonstration:</strong> This example does not send or save your information.</p>
+
+            <!-- The form controls below demonstrate basic HTML form elements. -->
+            <form onsubmit="alert('Thank you for trying the Nostalgia Tech form. This is a demonstration only.'); return false;">
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" name="fname" required>
+
+                <label for="email">Email address:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="browser">What was the first browser you used?</label>
+                <select id="browser" name="browser">
+                    <option value="">Choose a browser</option>
+                    <option value="netscape">Netscape Navigator</option>
+                    <option value="internet-explorer">Internet Explorer</option>
+                    <option value="aol">AOL browser</option>
+                    <option value="firefox">Mozilla Firefox</option>
+                    <option value="chrome">Google Chrome</option>
+                    <option value="other">Another browser</option>
+                    <option value="unsure">I cannot remember</option>
+                </select>
+
+                <fieldset>
+                    <legend>Which web technology do you remember best?</legend>
+                    <input type="radio" id="dialup" name="technology" value="dial-up">
+                    <label for="dialup">Dial-up internet</label><br>
+                    <input type="radio" id="html" name="technology" value="html">
+                    <label for="html">Creating a web page with HTML</label><br>
+                    <input type="radio" id="chat" name="technology" value="chat-rooms">
+                    <label for="chat">Chat rooms</label><br>
+                    <input type="radio" id="search" name="technology" value="search-engines">
+                    <label for="search">Early search engines</label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>What did you use the Web for? Choose all that apply.</legend>
+                    <input type="checkbox" id="email-use" name="web-use" value="email">
+                    <label for="email-use">Email</label><br>
+                    <input type="checkbox" id="games" name="web-use" value="games">
+                    <label for="games">Games</label><br>
+                    <input type="checkbox" id="music" name="web-use" value="music">
+                    <label for="music">Music</label><br>
+                    <input type="checkbox" id="school" name="web-use" value="school">
+                    <label for="school">School or research</label>
+                </fieldset>
+
+                <label for="memory">Share a memory of using the Web:</label>
+                <textarea id="memory" name="memory" rows="5" placeholder="Write your memory here..."></textarea>
+
+                <p>
+                    <input type="checkbox" id="subscribe" name="subscribe" value="yes" required>
+                    <label for="subscribe">I would like to subscribe to Nostalgia Tech.</label>
+                </p>
+
+                <input type="submit" name="submit" value="Subscribe">
+                <input type="reset" name="reset" value="Clear form">
+                <input type="button" name="memory_prompt" value="Add a memory prompt" onclick="document.getElementById('memory').value = 'What is the first website you remember visiting?';">
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Josephine Ashdown | Web Technologies</p>
+    </footer>
+</body>
+</html>
