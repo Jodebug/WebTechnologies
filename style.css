@@ -2,22 +2,20 @@
    WEBSITE
 ------------------------------ */
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     scroll-behavior: smooth;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
 body {
     background-color: #eee7d8;
+    color: #222;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    color: #222;
 }
 
 /* -----------------------------
@@ -28,13 +26,13 @@ body {
     position: absolute;
     top: -60px;
     left: 20px;
-    background-color: white;
-    color: black;
-    padding: 10px 16px;
-    border: 2px solid black;
-    border-radius: 5px;
-    font-weight: bold;
     z-index: 1000;
+    padding: 10px 16px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    background-color: white;
+    color: #111;
+    font-weight: bold;
 }
 
 .skip-link:focus {
@@ -46,24 +44,23 @@ body {
 ------------------------------ */
 
 header {
+    padding: 45px 20px 35px;
     background-color: #111;
     color: white;
     text-align: center;
-    padding: 45px 20px 35px;
 }
 
 header h1 {
-    font-size: 48px;
     margin: 0;
+    font-size: 48px;
     letter-spacing: 1px;
 }
 
 header p {
+    margin: 12px 0 0;
     color: #f1f1f1;
-    text-align: center;
     font-size: 18px;
-    margin-top: 12px;
-    margin-bottom: 0;
+    text-align: center;
 }
 
 /* -----------------------------
@@ -73,20 +70,21 @@ header p {
 nav {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 12px;
+    overflow-x: auto;
     padding: 12px 8px;
     background-color: #333;
 }
 
 nav a {
     flex: 0 0 auto;
+    padding: 10px 4px;
     color: white;
+    font-size: 16px;
     text-decoration: none;
     white-space: nowrap;
-    padding: 10px 0;
-    font-size: 16px;
 }
 
 nav a:hover,
@@ -95,76 +93,47 @@ nav a:focus-visible {
     color: black;
 }
 
-/* Smaller spacing for mobile screens */
-@media (max-width: 480px) {
-    nav {
-        gap: 8px;
-    }
-
-    nav a {
-        font-size: 13px;
-    }
-}
-
-/* -----------------------------
-   KEYBOARD ACCESSIBILITY
------------------------------- */
-
 nav a:focus-visible {
-    background-color: white;
-    color: black;
     outline: 3px solid #335f87;
-    outline-offset: -3px;
+    outline-offset: 2px;
     text-decoration: underline;
 }
 
-main a:focus-visible {
-    outline: 3px solid #335f87;
-    outline-offset: 3px;
-    border-radius: 3px;
+nav a[aria-current="page"] {
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 /* -----------------------------
-   MAIN CONTENT
+   MAIN CONTENT AND SECTIONS
 ------------------------------ */
 
 main {
+    width: 100%;
     max-width: 1000px;
     margin: 35px auto;
     padding: 0 25px;
 }
 
-/* -----------------------------
-   SECTIONS
------------------------------- */
-
 section {
-    background-color: white;
-    padding: 30px;
     margin-bottom: 30px;
+    padding: 30px;
     border-radius: 10px;
+    background-color: white;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* -----------------------------
-   HEADINGS
------------------------------- */
-
 h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #d9d2c3;
     color: #2b2b2b;
     font-size: 28px;
-    margin-top: 0;
-    border-bottom: 2px solid #d9d2c3;
-    padding-bottom: 10px;
 }
 
 h3 {
     color: #444;
 }
-
-/* -----------------------------
-   PARAGRAPHS
------------------------------- */
 
 p {
     color: #333;
@@ -172,10 +141,6 @@ p {
     line-height: 1.75;
     text-align: left;
 }
-
-/* -----------------------------
-   LISTS
------------------------------- */
 
 ul {
     line-height: 1.8;
@@ -187,14 +152,19 @@ ul {
 
 main a {
     color: #174c7c;
+    overflow-wrap: anywhere;
     text-decoration: underline;
     text-underline-offset: 3px;
-    overflow-wrap: anywhere;
 }
 
 main a:hover {
     color: #8b1e1e;
     text-decoration-thickness: 2px;
+}
+
+main a:focus-visible {
+    outline: 3px solid #335f87;
+    outline-offset: 3px;
 }
 
 /* -----------------------------
@@ -207,23 +177,23 @@ main a:hover {
 
 table {
     width: 100%;
-    border-collapse: collapse;
     margin-top: 20px;
+    border-collapse: collapse;
 }
 
 caption {
-    text-align: left;
+    margin-bottom: 12px;
+    color: #333;
     font-size: 17px;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 12px;
+    text-align: left;
 }
 
 th,
 td {
     padding: 12px 14px;
-    text-align: left;
     border: 1px solid #b8b8b8;
+    text-align: left;
 }
 
 th {
@@ -236,18 +206,18 @@ tr:nth-child(even) {
 }
 
 /* -----------------------------
-   IMAGE
+   IMAGE AND VIDEO
 ------------------------------ */
 
 figure {
-    text-align: center;
     margin: 25px 0;
+    text-align: center;
 }
 
 img {
     display: block;
-    max-width: 700px;
     width: 100%;
+    max-width: 700px;
     height: auto;
     margin: auto;
     border-radius: 6px;
@@ -260,10 +230,6 @@ figcaption {
     font-style: italic;
 }
 
-/* -----------------------------
-   VIDEO
------------------------------- */
-
 .video-container {
     max-width: 700px;
     margin: 25px auto;
@@ -272,16 +238,84 @@ figcaption {
 .video-container iframe {
     display: block;
     width: 100%;
-    height: auto;
     aspect-ratio: 16 / 9;
     border: 0;
     border-radius: 8px;
 }
 
 .small-note {
-    font-size: 14px;
     color: #555;
+    font-size: 14px;
     font-style: italic;
+}
+
+/* -----------------------------
+   NEWSLETTER FORM
+------------------------------ */
+
+.form-container {
+    max-width: 750px;
+    margin: 30px auto;
+}
+
+.form-container label,
+.form-container legend {
+    font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container select,
+.form-container textarea {
+    display: block;
+    width: 100%;
+    margin: 8px 0 16px;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    background-color: white;
+    font: inherit;
+}
+
+.form-container textarea {
+    resize: vertical;
+}
+
+.form-container fieldset {
+    margin: 16px 0;
+    padding: 12px;
+    border: 1px solid #999;
+    border-radius: 5px;
+}
+
+.form-container input[type="radio"],
+.form-container input[type="checkbox"] {
+    margin: 10px 5px 10px 0;
+    accent-color: #174c7c;
+}
+
+.form-container input[type="submit"],
+.form-container input[type="reset"],
+.form-container input[type="button"] {
+    margin: 5px 5px 5px 0;
+    padding: 10px 14px;
+    border: 1px solid #111;
+    border-radius: 4px;
+    background-color: #111;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+.form-container input[type="reset"] {
+    background-color: #555;
+}
+
+.form-container input:focus-visible,
+.form-container select:focus-visible,
+.form-container textarea:focus-visible {
+    outline: 3px solid #335f87;
+    outline-offset: 2px;
 }
 
 /* -----------------------------
@@ -289,58 +323,45 @@ figcaption {
 ------------------------------ */
 
 footer {
-    background-color: #111;
-    padding: 24px 20px;
     margin-top: 40px;
+    padding: 24px 20px;
+    background-color: #111;
 }
 
 footer p {
+    margin: 0;
     color: white;
     text-align: center;
-    margin: 0;
 }
 
 /* -----------------------------
-   MOBILE
+   MOBILE LAYOUT
 ------------------------------ */
 
 @media (max-width: 600px) {
-    nav {
-        padding: 8px;
-    }
-
-    nav ul {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 4px;
-    }
-
-    nav li {
-        width: auto;
-    }
-
-    nav a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        padding: 10px 14px;
-        text-align: center;
-    }
-
     header {
         padding: 24px 16px;
     }
 
     header h1 {
-        font-size: 2rem;
+        font-size: 30px;
         line-height: 1.2;
     }
 
     header p {
         font-size: 16px;
+    }
+
+    nav {
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 8px;
+    }
+
+    nav a {
+        min-height: 44px;
+        padding: 12px 4px;
+        font-size: 14px;
     }
 
     main {
@@ -349,8 +370,8 @@ footer p {
     }
 
     section {
-        padding: 20px;
         margin-bottom: 20px;
+        padding: 20px;
     }
 
     h2 {
@@ -358,126 +379,56 @@ footer p {
     }
 }
 
-/* -----------------------------
-   REDUCED MOTION
------------------------------- */
-
+/* Follow the visitor's reduced-motion setting */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
     }
-
-    nav a {
-        transition: none;
-    }
-}
-/* Include padding and borders within element widths */
-* {
-    box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+/* Shared controls: native buttons support keyboard activation. */
+button { font: inherit; padding: 10px 14px; min-height: 44px; border: 1px solid #777; border-radius: 5px; cursor: pointer; background: #111; color: white; }
+button:hover { background: #444; }
+:focus-visible { outline: 3px solid #337bb7; outline-offset: 3px; }
+header button { margin-top: 16px; background: white; color: #111; }
+header button:hover { background: #ddd; }
+[hidden] { display: none !important; }
+nav a:first-child { margin-left: auto; }
+nav a:last-child { margin-right: auto; }
+.page-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 18px; padding: 12px; background: #eee7d8; }
+.page-links a { color: #174c7c; padding: 6px; }
+input, select, textarea { font: inherit; max-width: 100%; }
+#browser-filter { display: block; width: 100%; padding: 12px; margin: 8px 0; }
+details { border: 1px solid #999; border-radius: 5px; padding: 14px; margin: 14px 0; }
+summary { cursor: pointer; font-weight: bold; min-height: 32px; }
+pre { background: #f3f0e9; padding: 16px; overflow-x: auto; line-height: 1.6; }
+code { font-family: Consolas, monospace; }
+.demo-controls { display: flex; flex-wrap: wrap; gap: 10px; }
+.status { border-left: 4px solid #335f87; padding-left: 12px; }
+fieldset { min-width: 0; }
+/* JavaScript toggles this class; CSS remains responsible for colours. */
+body.dark-mode { background: #181818; color: #f5f5f5; color-scheme: dark; }
+body.dark-mode section { background: #242424; }
+body.dark-mode p, body.dark-mode h2, body.dark-mode h3,
+body.dark-mode caption, body.dark-mode figcaption { color: #f5f5f5; }
+body.dark-mode main a { color: #9dccff; }
+body.dark-mode tr:nth-child(even), body.dark-mode pre { background: #333; }
+body.dark-mode .form-container input[type="text"],
+body.dark-mode .form-container input[type="email"],
+body.dark-mode select, body.dark-mode textarea { background: #181818; color: #fff; }
+/* Five section links stay together. Other pages have their own row. */
+@media (max-width: 600px) {
+    nav { gap: 6px; padding: 8px 4px; }
+    nav a { font-size: 13px; padding: 12px 3px; }
+    section { padding: 16px; }
+    th, td { padding: 8px; }
 }
-
-/* Allow the main content to fit smaller screens */
-main {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 24px;
-}
-
-/* Navigation: keep all five links on one line */
-nav {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 12px;
-    background-color: #333;
-}
-
-nav a {
-    flex: 0 0 auto;
-    width: auto;
-    margin: 0;
-    padding: 12px 10px;
-    color: white;
-    font-size: 16px;
-    line-height: 1.5;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-nav a:hover,
-nav a:focus-visible {
-    background-color: white;
-    color: black;
-}
-
-nav a:focus-visible {
-    outline: 2px solid white;
-    outline-offset: 2px;
-}
-
-/* Prevent images and videos exceeding the content width */
-img,
-video {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Responsive embedded YouTube video */
-iframe {
-    display: block;
-    width: 100%;
-    max-width: 640px;
-    aspect-ratio: 16 / 9;
-    height: auto;
-    border: 0;
-}
-
-/* Allow long reference links to wrap */
-main a {
-    overflow-wrap: anywhere;
-}
-
-/* Adjust spacing for mobile screens */
-@media screen and (max-width: 600px) {
-    header {
-        padding: 24px 12px;
-    }
-
-    header h1 {
-        font-size: 30px;
-    }
-
-    main {
-        padding: 16px;
-    }
-
-    nav {
-        gap: 4px;
-        padding: 8px 4px;
-
-        /* Keep links reachable if text is enlarged */
-        justify-content: flex-start;
-        overflow-x: auto;
-    }
-
-    nav a {
-        padding: 12px 4px;
-        font-size: 14px;
-    }
-
-    /* Centre the links when there is spare room */
-    nav a:first-child {
-        margin-left: auto;
-    }
-    nav a:last-child {
-        margin-right: auto;
-    }
+/* Print the learning material without navigation or interactive controls. */
+@media print {
+    body, body.dark-mode { background: white; color: black; }
+    header, footer, nav, .page-links, button, .demo-controls, .video-container { display: none !important; }
+    main { max-width: none; padding: 0; margin: 0; }
+    section, body.dark-mode section { box-shadow: none; background: white; padding: 8px 0; }
+    body.dark-mode p, body.dark-mode h2, body.dark-mode h3, body.dark-mode caption { color: black; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 }

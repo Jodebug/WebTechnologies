@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A student web technologies page exploring the history and development of web browsers and the World Wide Web.">
     <title>Web Technologies | History of the Web</title>
-    <link rel="stylesheet" href="web-technologies.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- defer lets the HTML load before JavaScript finds its elements. -->
+    <script src="script.js" defer></script>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header>
         <h1>Web Technologies</h1>
         <p>Exploring the history and development of the World Wide Web</p>
+        <button id="theme-button" type="button" aria-pressed="false" hidden data-js-controls>Dark mode</button>
     </header>
     <nav aria-label="Main navigation">
         <a href="#history">History</a>
@@ -19,9 +22,10 @@
         <a href="#references">References</a>
         <a href="#video">Video</a>
         <a href="#image">Image</a>
-        <a href="nostalgia-tech.html">Nostalgia Tech</a>
     </nav>
-    <main id="main-content">
+    <div class="page-links"><a href="nostalgia-tech.html">Nostalgia Tech</a><a href="index.html#javascript">Learn JavaScript</a></div>
+    <noscript><p>JavaScript is disabled. You can still read the pages; interactive demonstrations need JavaScript enabled.</p></noscript>
+    <main id="main-content" tabindex="-1">
         <section id="history">
             <h2>The History of Web Browsers</h2>
             <p>The history of the web browser started alongside the development of the World Wide Web. In 1989, Tim Berners-Lee developed the idea of the Web while working at CERN because there was a need for scientists and universities to share information more easily. By the end of 1990, he had created the first web server and the first browser, which was called WorldWideWeb.</p>
@@ -35,7 +39,8 @@
         </section>
         <section id="timeline">
             <h2>Web Browser Timeline</h2>
-            <div class="table-container">
+            <div hidden data-js-controls><label for="browser-filter">Find a browser, year or developer:</label><input id="browser-filter" type="search" placeholder="For example: Mosaic or 1995"><p id="filter-status" aria-live="polite"></p></div>
+            <div class="table-container" tabindex="0" role="region" aria-label="Browser timeline">
                 <table>
                     <caption>Key milestones in the development of web browsers</caption>
                     <thead><tr><th scope="col">Browser</th><th scope="col">Year</th><th scope="col">Developer</th></tr></thead>
@@ -64,6 +69,74 @@
                 <figcaption>An illustration representing Web Technologies.</figcaption>
             </figure>
         </section>
+        <!-- Learning notes: details elements work even without JavaScript. -->
+<section id="javascript">
+<h2>JavaScript: learn it, then try it</h2>
+<p>Open a topic to read a short explanation and example. These examples are displayed as text; the buttons below run the safe demonstrations.</p>
+<details><summary>The three languages</summary><p>HTML defines content and structure. CSS controls presentation and layout. JavaScript adds behaviour and interactivity. They are the three core front-end languages. Brendan Eich created JavaScript in 1995. Browsers contain a JavaScript engine, so visitors do not need a separate download.</p><pre><code>document.body.classList.toggle(&quot;dark-mode&quot;); // CSS defines the colours</code></pre></details>
+<details><summary>Where JavaScript goes</summary><p>JavaScript can sit between script tags in the head or body. Inline event attributes also exist, but this project uses an external script and event listeners to keep responsibilities separate. A shared external script is a toolbox that both pages can use. The defer attribute runs it after HTML parsing; button handlers run later, when clicked.</p><pre><code>&lt;!-- Recommended: in the head --&gt;
+&lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;
+
+&lt;!-- Embedded script: head or body --&gt;
+&lt;script&gt;
+    console.log(&quot;Hello from JavaScript&quot;);
+&lt;/script&gt;
+
+&lt;!-- Inline event example, not used in this project --&gt;
+&lt;button onclick=&quot;alert(&#x27;Hello&#x27;)&quot;&gt;Say hello&lt;/button&gt;</code></pre></details>
+<details><summary>Output and changing content</summary><p>JavaScript can find an existing element and update its content. textContent changes plain text. innerHTML is a property, not a function; it parses HTML, so never insert untrusted user input through it. alert displays a message, console.log writes to developer tools, and window.print opens the print dialogue. document.write can replace the document after loading, so it is explained here but never executed.</p><pre><code>document.getElementById(&quot;demo-output&quot;).textContent = &quot;Hello!&quot;;
+// Only use trusted markup with innerHTML:
+document.getElementById(&quot;demo-output&quot;).innerHTML = &quot;&lt;strong&gt;Hello!&lt;/strong&gt;&quot;;
+console.log(&quot;A message for the developer&quot;);
+window.alert(&quot;Hello!&quot;);
+window.print();
+// Avoid: document.write(&quot;This could replace the page&quot;);</code></pre></details>
+<details><summary>Statements, expressions and operators</summary><p>A statement is an instruction. An expression produces a value. The equals sign assigns a value; it does not mean mathematical equality. Use === to compare without type conversion. Braces group statements into blocks.</p><pre><code>let x, y, z;
+x = 5;
+y = 6;
+z = x + y; // The expression x + y produces 11
+
+if (z === 11) {
+    console.log(&quot;The answer is &quot; + z);
+}
+// Arithmetic: +  -  *  /  %  **
+// Assignment: =  +=  -=
+// Other literals: &quot;John Doe&quot;, true, null</code></pre></details>
+<details><summary>Variables, arrays and const</summary><p>Think of a variable as a named chest that holds a value. Use const when the binding will not be reassigned, and let when it will change. const does not freeze an object or array. var is older and still valid, but prefer let and const in new code.</p><pre><code>const firstName = &quot;John&quot;; // String
+let score = 5;            // Number
+score += 6;
+const isLearning = true;  // Boolean
+const browsers = [&quot;Mosaic&quot;, &quot;Firefox&quot;, &quot;Chrome&quot;];
+browsers.push(&quot;Safari&quot;);  // Allowed: the array can change
+// browsers = [];        // Not allowed: reassignment</code></pre></details>
+<details><summary>Identifiers and readable comments</summary><p>Names are case-sensitive. A simple identifier starts with a letter, underscore or dollar sign; later characters may include digits. Unicode letters are also supported. Reserved words such as let, var and class cannot be variable names. char is not reserved in JavaScript. Use descriptive camelCase names such as firstName, not firstname. Comments explain intent and are ignored during execution.</p><pre><code>// A single-line comment
+const browserCount = 6;
+
+/* A multi-line comment explains
+   a section of code. */
+
+// console.log(browserCount); // Commented out: will not run</code></pre></details>
+<details><summary>ES6 and block scope</summary><p>let and const were introduced in ES6 (2015). Both are block-scoped: they belong to the surrounding pair of braces. var is function-scoped, or global when declared at the top of a classic script; an if block does not confine it. Keep variables in the smallest useful scope.</p><pre><code>function demonstrateScope() {
+    if (true) {
+        let insideBlock = &quot;Only available here&quot;;
+        var insideFunction = &quot;Available throughout this function&quot;;
+    }
+    console.log(insideFunction);
+    // console.log(insideBlock); // Would cause a ReferenceError
+}</code></pre></details>
+<h3>Try JavaScript output</h3>
+<div class="demo-controls" hidden data-js-controls>
+<button type="button" id="text-demo">Change this text</button>
+<button type="button" id="html-demo">Show formatted output</button>
+<button type="button" id="calculate-demo">Calculate 5 + 6</button>
+<button type="button" id="alert-demo">Show an alert</button>
+<button type="button" id="console-demo">Write to the console</button>
+<button type="button" id="print-demo">Print this page</button>
+</div>
+<p id="demo-output" class="status" aria-live="polite">Your result will appear here.</p>
+<p>To see console output, open your browser’s developer tools and select Console. Printing includes all the learning topics.</p>
+</section>
+
         <section id="references">
             <h2>References</h2>
             <ul>

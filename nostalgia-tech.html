@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Share your memories of early web browsers and web technologies.">
     <title>Nostalgia Tech | Web Technologies</title>
-    <link rel="stylesheet" href="web-technologies.css">
+    <link rel="stylesheet" href="style.css">
 
+    <!-- defer lets the HTML load before JavaScript finds its elements. -->
+    <script src="script.js" defer></script>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -14,6 +16,7 @@
     <header>
         <h1>Nostalgia Tech</h1>
         <p>Remembering the browsers and websites we grew up with</p>
+        <button id="theme-button" type="button" aria-pressed="false" hidden data-js-controls>Dark mode</button>
     </header>
 
     <nav aria-label="Main navigation">
@@ -22,22 +25,25 @@
         <a href="index.html#references">References</a>
         <a href="index.html#video">Video</a>
         <a href="index.html#image">Image</a>
-        <a href="nostalgia-tech.html" aria-current="page">Nostalgia Tech</a>
     </nav>
+    <div class="page-links"><a href="nostalgia-tech.html">Nostalgia Tech</a><a href="index.html#javascript">Learn JavaScript</a></div>
+    <noscript><p>JavaScript is disabled. You can still read the pages; interactive demonstrations need JavaScript enabled.</p></noscript>
 
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
         <section class="form-container">
             <h2>Join the Nostalgia Tech newsletter</h2>
             <p>Tell us about the first browser you used and what you remember about the early Web.</p>
             <p><strong>Form demonstration:</strong> This example does not send or save your information.</p>
 
             <!-- The form controls below demonstrate basic HTML form elements. -->
-            <form onsubmit="alert('Thank you for trying the Nostalgia Tech form. This is a demonstration only.'); return false;">
+            <form id="nostalgia-form">
+                <fieldset id="form-fields" disabled>
+                <legend>Your web memories</legend>
                 <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname" required>
+                <input type="text" id="fname" name="fname" autocomplete="given-name" required>
 
                 <label for="email">Email address:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" autocomplete="email" required>
 
                 <label for="browser">What was the first browser you used?</label>
                 <select id="browser" name="browser">
@@ -76,16 +82,19 @@
                 </fieldset>
 
                 <label for="memory">Share a memory of using the Web:</label>
-                <textarea id="memory" name="memory" rows="5" placeholder="Write your memory here..."></textarea>
+                <textarea id="memory" name="memory" rows="5" maxlength="500" aria-describedby="memory-count memory-hint" placeholder="Write your memory here..."></textarea>
+                <p id="memory-count">0 / 500 characters</p><p id="memory-hint" aria-live="polite"></p>
 
                 <p>
                     <input type="checkbox" id="subscribe" name="subscribe" value="yes" required>
                     <label for="subscribe">I would like to subscribe to Nostalgia Tech.</label>
                 </p>
 
-                <input type="submit" name="submit" value="Subscribe">
+                <input type="submit" name="submit" value="Try subscription demo">
                 <input type="reset" name="reset" value="Clear form">
-                <input type="button" name="memory_prompt" value="Add a memory prompt" onclick="document.getElementById('memory').value = 'What is the first website you remember visiting?';">
+                <button type="button" id="memory-prompt">Show a memory prompt</button>
+            </fieldset>
+                <p id="form-status" class="status" role="status"></p>
             </form>
         </section>
     </main>
