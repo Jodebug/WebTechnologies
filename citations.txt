@@ -1,0 +1,67 @@
+==============================================================================
+ACADEMIC CITATIONS & SOURCES LIST
+Module: Web Technologies (55-709700-BF-20267)
+Student: Josephine Ashdown
+Assignment: Web Application Project (Level 7)
+==============================================================================
+
+All code patterns, design principles, and external data sources utilized in 
+this project have been documented below in accordance with Sheffield Hallam 
+University academic integrity regulations.
+
+1. W3SCHOOLS TUTORIAL CITATIONS:
+------------------------------------------------------------------------------
+- HTML5 Semantic Structure:
+  W3Schools (2026) 'HTML5 Semantic Elements'. 
+  Available at: https://www.w3schools.com/html/html5_semantic_elements.asp
+
+- Mobile-First CSS Media Queries & Flexbox/Grid:
+  W3Schools (2026) 'Responsive Web Design - Media Queries'. 
+  Available at: https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+  W3Schools (2026) 'CSS Flexbox'. 
+  Available at: https://www.w3schools.com/css/css3_flexbox.asp
+  W3Schools (2026) 'CSS Grid'. 
+  Available at: https://www.w3schools.com/css/css_grid.asp
+
+- CSS Attribute Selectors & Pseudo-Classes:
+  W3Schools (2026) 'CSS Attribute Selectors'.
+  Available at: https://www.w3schools.com/css/css_attribute_selectors.asp
+  W3Schools (2026) 'CSS Pseudo-classes'.
+  Available at: https://www.w3schools.com/css/css_pseudo_classes.asp
+
+- HTML Forms, Input Types, and Constraint Validation:
+  W3Schools (2026) 'HTML Forms' and 'HTML Input Types'.
+  Available at: https://www.w3schools.com/html/html_forms.asp
+  Available at: https://www.w3schools.com/html/html_form_input_types.asp
+
+- JavaScript Fetch API, Promises, and Async/Await:
+  W3Schools (2026) 'JavaScript Fetch API'.
+  Available at: https://www.w3schools.com/js/js_api_fetch.asp
+  W3Schools (2026) 'JavaScript Async/Await'.
+  Available at: https://www.w3schools.com/js/js_async.asp
+
+- DOM Manipulation & Element Creation:
+  W3Schools (2026) 'JavaScript HTML DOM Nodes'.
+  Available at: https://www.w3schools.com/js/js_htmldom_nodes.asp
+
+- Web Accessibility & Skip Links:
+  W3Schools (2026) 'Accessibility Guidelines (WCAG)'.
+  Available at: https://www.w3schools.com/accessibility/
+
+2. EXTERNAL REST API:
+------------------------------------------------------------------------------
+- Wikimedia Foundation (2026) 'Wikipedia REST API - Page Summary'.
+  Endpoint: https://en.wikipedia.org/api/rest_v1/page/summary/{title}
+  Documentation: https://en.wikipedia.org/api/rest_v1/
+
+3. HISTORICAL & ACADEMIC SOURCES:
+------------------------------------------------------------------------------
+- CERN (n.d.) 'A Short History of the Web'. 
+  Available at: https://home.cern/science/computing/birth-web
+
+- Mozilla (n.d.) 'Browser History: Epic power struggles that brought us modern browsers'. 
+  Available at: https://www.mozilla.org/en-US/firefox/browsers/browser-history/
+
+- National Center for Supercomputing Applications (NCSA) (n.d.) 'A Legacy of Innovation'. 
+  University of Illinois Urbana-Champaign.
+==============================================================================

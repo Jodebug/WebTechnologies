@@ -3,104 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Share your memories of early web browsers and web technologies.">
-    <title>Nostalgia Tech | Web Technologies</title>
+    <meta name="description" content="Share and archive memories of early web browsers, vintage web technologies, and dial-up internet experiences.">
+    <title>Nostalgia Tech | Web Memories & Archive Community</title>
+    
+    <!-- External Mobile-First Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- defer lets the HTML load before JavaScript finds its elements. -->
+    
+    <!-- External JavaScript with defer -->
     <script src="script.js" defer></script>
 </head>
 <body>
+    <!-- Accessibility Skip Link -->
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header>
-        <h1>Nostalgia Tech</h1>
-        <p>Remembering the browsers and websites we grew up with</p>
-        <button id="theme-button" type="button" aria-pressed="false" hidden data-js-controls>Dark mode</button>
+    <!-- Semantic Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <h1>Nostalgia Tech</h1>
+            <p class="tagline">Remembering the dial-up sounds, early browsers, and digital experiences we grew up with</p>
+            <button id="theme-button" type="button" class="btn btn-secondary" aria-pressed="false" data-js-controls>
+                <span class="theme-icon" aria-hidden="true">🌙</span> Toggle Dark Mode
+            </button>
+        </div>
     </header>
 
-    <nav aria-label="Main navigation">
-        <a href="index.html#history">History</a>
-        <a href="index.html#timeline">Timeline</a>
-        <a href="index.html#references">References</a>
-        <a href="index.html#video">Video</a>
-        <a href="index.html#image">Image</a>
+    <!-- Semantic Navigation -->
+    <nav class="site-nav" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-link">Home &amp; History</a>
+            <a href="index.html#explorer" class="nav-link">Live API Explorer</a>
+            <a href="index.html#timeline" class="nav-link">Timeline</a>
+            <a href="nostalgia-tech.html" class="nav-link active" aria-current="page">Nostalgia Tech Form</a>
+            <a href="index.html#javascript" class="nav-link">JavaScript Sandbox</a>
+            <a href="index.html#references" class="nav-link">References</a>
+        </div>
     </nav>
-    <div class="page-links"><a href="nostalgia-tech.html">Nostalgia Tech</a><a href="index.html#javascript">Learn JavaScript</a></div>
-    <noscript><p>JavaScript is disabled. You can still read the pages; interactive demonstrations need JavaScript enabled.</p></noscript>
 
     <main id="main-content" tabindex="-1">
-        <section class="form-container">
-            <h2>Join the Nostalgia Tech newsletter</h2>
-            <p>Tell us about the first browser you used and what you remember about the early Web.</p>
-            <p><strong>Form demonstration:</strong> This example does not send or save your information.</p>
+        <section class="content-section card-surface">
+            <h2>Join the Nostalgia Tech Community &amp; Archive</h2>
+            <p class="lead-text">
+                Contribute your memories to our living digital archive. Completing this form allows you to register your early web experiences and automatically query historical metadata from our Web Technologies API.
+            </p>
 
-            <!-- The form controls below demonstrate basic HTML form elements. -->
-            <form id="nostalgia-form">
-                <fieldset id="form-fields" disabled>
-                <legend>Your web memories</legend>
-                <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname" autocomplete="given-name" required>
+            <!-- Comprehensive HTML5 Form showcasing advanced elements and validation -->
+            <!-- Citation: HTML Forms and Validation patterns adapted from W3Schools HTML Forms:
+                 https://www.w3schools.com/html/html_forms.asp
+                 https://www.w3schools.com/html/html_form_input_types.asp -->
+            <form id="nostalgia-form" class="styled-form" novalidate>
+                
+                <!-- Fieldset 1: Identity & Credentials -->
+                <fieldset class="form-fieldset">
+                    <legend>Personal Information</legend>
+                    
+                    <div class="form-row">
+                        <div class="form-group flex-1">
+                            <label for="fname">First Name <span class="required-indicator" aria-hidden="true">*</span>:</label>
+                            <input 
+                                type="text" 
+                                id="fname" 
+                                name="fname" 
+                                autocomplete="given-name" 
+                                required 
+                                minlength="2" 
+                                maxlength="50"
+                                placeholder="Your first name"
+                                aria-required="true"
+                            >
+                            <span class="validation-message" aria-live="polite"></span>
+                        </div>
 
-                <label for="email">Email address:</label>
-                <input type="email" id="email" name="email" autocomplete="email" required>
-
-                <label for="browser">What was the first browser you used?</label>
-                <select id="browser" name="browser">
-                    <option value="">Choose a browser</option>
-                    <option value="netscape">Netscape Navigator</option>
-                    <option value="internet-explorer">Internet Explorer</option>
-                    <option value="aol">AOL browser</option>
-                    <option value="firefox">Mozilla Firefox</option>
-                    <option value="chrome">Google Chrome</option>
-                    <option value="other">Another browser</option>
-                    <option value="unsure">I cannot remember</option>
-                </select>
-
-                <fieldset>
-                    <legend>Which web technology do you remember best?</legend>
-                    <input type="radio" id="dialup" name="technology" value="dial-up">
-                    <label for="dialup">Dial-up internet</label><br>
-                    <input type="radio" id="html" name="technology" value="html">
-                    <label for="html">Creating a web page with HTML</label><br>
-                    <input type="radio" id="chat" name="technology" value="chat-rooms">
-                    <label for="chat">Chat rooms</label><br>
-                    <input type="radio" id="search" name="technology" value="search-engines">
-                    <label for="search">Early search engines</label>
+                        <div class="form-group flex-1">
+                            <label for="email">Email Address <span class="required-indicator" aria-hidden="true">*</span>:</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                autocomplete="email" 
+                                required 
+                                placeholder="name@example.co.uk"
+                                aria-required="true"
+                            >
+                            <span class="validation-message" aria-live="polite"></span>
+                        </div>
+                    </div>
                 </fieldset>
 
-                <fieldset>
-                    <legend>What did you use the Web for? Choose all that apply.</legend>
-                    <input type="checkbox" id="email-use" name="web-use" value="email">
-                    <label for="email-use">Email</label><br>
-                    <input type="checkbox" id="games" name="web-use" value="games">
-                    <label for="games">Games</label><br>
-                    <input type="checkbox" id="music" name="web-use" value="music">
-                    <label for="music">Music</label><br>
-                    <input type="checkbox" id="school" name="web-use" value="school">
-                    <label for="school">School or research</label>
+                <!-- Fieldset 2: Web Heritage & Technical Choices -->
+                <fieldset class="form-fieldset">
+                    <legend>Early Web Experience &amp; Tech History</legend>
+
+                    <div class="form-row">
+                        <div class="form-group flex-1">
+                            <label for="browser-select">What was the first browser you ever used? <span class="required-indicator" aria-hidden="true">*</span>:</label>
+                            <select id="browser-select" name="firstBrowser" required aria-required="true">
+                                <option value="">-- Choose First Browser --</option>
+                                <option value="WorldWideWeb">WorldWideWeb (1990)</option>
+                                <option value="Mosaic_(web_browser)">NCSA Mosaic (1993)</option>
+                                <option value="Netscape_Navigator">Netscape Navigator (1994)</option>
+                                <option value="Internet_Explorer">Internet Explorer (1995)</option>
+                                <option value="Opera_(web_browser)">Opera Browser (1995)</option>
+                                <option value="Mozilla_Firefox">Mozilla Firefox (2004)</option>
+                                <option value="Google_Chrome">Google Chrome (2008)</option>
+                                <option value="other">Another retro browser</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group flex-1">
+                            <label for="year-input">Approximate Year of First Web Access (1990–2015):</label>
+                            <!-- Number input with min/max constraints -->
+                            <input 
+                                type="number" 
+                                id="year-input" 
+                                name="firstYear" 
+                                min="1990" 
+                                max="2015" 
+                                step="1" 
+                                placeholder="E.g. 1996"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Range Slider: Nostalgia Rating -->
+                    <!-- Citation: HTML Range slider adapted from W3Schools:
+                         https://www.w3schools.com/tags/att_input_type_range.asp -->
+                    <div class="form-group">
+                        <label for="nostalgia-rating">
+                            Rate your nostalgia for 1990s/2000s web culture (1 = Low, 10 = Pure Nostalgia): 
+                            <strong id="rating-output" class="badge-pill">7 / 10</strong>
+                        </label>
+                        <input 
+                            type="range" 
+                            id="nostalgia-rating" 
+                            name="nostalgiaRating" 
+                            min="1" 
+                            max="10" 
+                            value="7" 
+                            step="1"
+                        >
+                    </div>
+
+                    <!-- Radio Buttons Group -->
+                    <div class="form-group">
+                        <fieldset class="sub-fieldset">
+                            <legend>Which nostalgic technology do you miss the most?</legend>
+                            <div class="radio-grid">
+                                <label class="radio-label">
+                                    <input type="radio" name="techMemory" value="dialup" checked> Dial-up modem connection sounds
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="techMemory" value="html-page"> Writing raw HTML in Notepad
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="techMemory" value="chat"> MSN Messenger &amp; IRC chatrooms
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="techMemory" value="search"> Early search engines (AltaVista, Yahoo Directory)
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- Checkboxes Group -->
+                    <div class="form-group">
+                        <fieldset class="sub-fieldset">
+                            <legend>What did you primarily use the early web for? (Select all that apply)</legend>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="usage" value="email"> Email (Hotmail / Yahoo)
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="usage" value="school"> School &amp; University Research
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="usage" value="gaming"> Flash Games &amp; Online Gaming
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="usage" value="forums"> Discussion Forums &amp; Bulletin Boards
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
                 </fieldset>
 
-                <label for="memory">Share a memory of using the Web:</label>
-                <textarea id="memory" name="memory" rows="5" maxlength="500" aria-describedby="memory-count memory-hint" placeholder="Write your memory here..."></textarea>
-                <p id="memory-count">0 / 500 characters</p><p id="memory-hint" aria-live="polite"></p>
+                <!-- Fieldset 3: Qualitative Reflection & Consent -->
+                <fieldset class="form-fieldset">
+                    <legend>Share Your Personal Web Story</legend>
+                    
+                    <div class="form-group">
+                        <div class="label-with-action">
+                            <label for="memory-text">Share a specific memory or reflection:</label>
+                            <button type="button" id="memory-prompt-btn" class="btn btn-outline-sm">Need Inspiration? Get Prompt</button>
+                        </div>
+                        <p id="memory-hint" class="hint-text" aria-live="polite"></p>
+                        <textarea 
+                            id="memory-text" 
+                            name="memoryText" 
+                            rows="4" 
+                            maxlength="500" 
+                            placeholder="Describe the feelings, sounds, or websites that marked your early internet journey..." 
+                            aria-describedby="char-count"
+                        ></textarea>
+                        <div id="char-count" class="char-counter" aria-live="polite">0 / 500 characters</div>
+                    </div>
 
-                <p>
-                    <input type="checkbox" id="subscribe" name="subscribe" value="yes" required>
-                    <label for="subscribe">I would like to subscribe to Nostalgia Tech.</label>
-                </p>
+                    <div class="form-group checkbox-consent">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="subscribe-checkbox" name="subscribe" required aria-required="true">
+                            <span>I agree to have my contribution included in the Web Technologies student archive demonstration. <span class="required-indicator">*</span></span>
+                        </label>
+                    </div>
+                </fieldset>
 
-                <input type="submit" name="submit" value="Try subscription demo">
-                <input type="reset" name="reset" value="Clear form">
-                <button type="button" id="memory-prompt">Show a memory prompt</button>
-            </fieldset>
-                <p id="form-status" class="status" role="status"></p>
+                <!-- Form Controls & Actions -->
+                <div class="form-actions">
+                    <button type="submit" id="submit-form-btn" class="btn btn-primary">
+                        Submit &amp; Fetch Historical Data
+                    </button>
+                    <button type="reset" id="reset-form-btn" class="btn btn-secondary">
+                        Clear Form
+                    </button>
+                </div>
             </form>
+
+            <!-- Dynamic Post-Submission Status & Live API Feedback -->
+            <div id="form-feedback" class="status-banner" role="status" aria-live="polite"></div>
+            
+            <!-- Injected dynamic historical card from API based on user's first browser -->
+            <div id="browser-historical-card" class="api-results-wrapper"></div>
         </section>
+
+        <!-- Contextual Sidebar / Aside -->
+        <aside class="content-section callout-box">
+            <h3>Why Web Nostalgia Matters in Software Engineering</h3>
+            <p>
+                Reflecting on early browsers reminds modern developers of the importance of progressive enhancement, lightweight assets, and universal accessibility. The earliest sites loaded over 28.8k dial-up connections, requiring strict performance budgets and semantic structure.
+            </p>
+        </aside>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Josephine Ashdown | Web Technologies</p>
+    <!-- Semantic Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Josephine Ashdown | Sheffield Hallam University | Web Technologies (55-709700)</p>
+            <p><small>Designed with accessible semantic HTML forms, constraint validation, and mobile-first CSS.</small></p>
+        </div>
     </footer>
 </body>
 </html>
