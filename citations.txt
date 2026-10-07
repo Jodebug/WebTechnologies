@@ -1,13 +1,13 @@
 ==============================================================================
-ACADEMIC CITATIONS & SOURCES LIST
+Tutorials and sources
 Module: Web Technologies (55-709700-BF-20267)
 Student: Josephine Ashdown
 Assignment: Web Application Project (Level 7)
 ==============================================================================
 
-All code patterns, design principles, and external data sources utilized in 
-this project have been documented below in accordance with Sheffield Hallam 
-University academic integrity regulations.
+The links below relate to the HTML, CSS and JavaScript examples used in this
+project. Comments in the code identify the relevant tutorials. Check the
+reference format and add access dates before submitting coursework.
 
 1. W3SCHOOLS TUTORIAL CITATIONS:
 ------------------------------------------------------------------------------
@@ -65,3 +65,7 @@ University academic integrity regulations.
 - National Center for Supercomputing Applications (NCSA) (n.d.) 'A Legacy of Innovation'. 
   University of Illinois Urbana-Champaign.
 ==============================================================================
+
+Tab navigation reference:
+W3C, WAI-ARIA Authoring Practices: Tabs Pattern.
+https://www.w3.org/WAI/ARIA/apg/patterns/tabs/

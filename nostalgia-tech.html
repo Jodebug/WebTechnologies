@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Share and archive memories of early web browsers, vintage web technologies, and dial-up internet experiences.">
-    <title>Nostalgia Tech | Web Memories & Archive Community</title>
+    <meta name="description" content="Try a form about your first browser and early memories of the internet.">
+    <title>Nostalgia Tech | Early web memories</title>
     
     <!-- External Mobile-First Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -39,18 +39,19 @@
         </div>
     </nav>
 
+    <noscript><p class="callout-box">Enable JavaScript to try the form. No information will be submitted.</p></noscript>
     <main id="main-content" tabindex="-1">
         <section class="content-section card-surface">
-            <h2>Join the Nostalgia Tech Community &amp; Archive</h2>
+            <h2>What do you remember about the early Web?</h2>
             <p class="lead-text">
-                Contribute your memories to our living digital archive. Completing this form allows you to register your early web experiences and automatically query historical metadata from our Web Technologies API.
+                Try the form and explore the history of your first browser. This is a student demonstration: your details and memories are not saved or sent. Only your selected browser name is used for the Wikipedia lookup.
             </p>
 
-            <!-- Comprehensive HTML5 Form showcasing advanced elements and validation -->
+            <!-- Form controls and validation -->
             <!-- Citation: HTML Forms and Validation patterns adapted from W3Schools HTML Forms:
                  https://www.w3schools.com/html/html_forms.asp
                  https://www.w3schools.com/html/html_form_input_types.asp -->
-            <form id="nostalgia-form" class="styled-form" novalidate>
+            <form onsubmit="return false" id="nostalgia-form" class="styled-form" novalidate>
                 
                 <!-- Fieldset 1: Identity & Credentials -->
                 <fieldset class="form-fieldset">
@@ -210,7 +211,7 @@
                     <div class="form-group checkbox-consent">
                         <label class="checkbox-label">
                             <input type="checkbox" id="subscribe-checkbox" name="subscribe" required aria-required="true">
-                            <span>I agree to have my contribution included in the Web Technologies student archive demonstration. <span class="required-indicator">*</span></span>
+                            <span>I understand this is a demonstration and my contribution will not be saved. <span class="required-indicator">*</span></span>
                         </label>
                     </div>
                 </fieldset>
@@ -218,7 +219,7 @@
                 <!-- Form Controls & Actions -->
                 <div class="form-actions">
                     <button type="submit" id="submit-form-btn" class="btn btn-primary">
-                        Submit &amp; Fetch Historical Data
+                        Try the form and look up my browser
                     </button>
                     <button type="reset" id="reset-form-btn" class="btn btn-secondary">
                         Clear Form
@@ -229,24 +230,32 @@
             <!-- Dynamic Post-Submission Status & Live API Feedback -->
             <div id="form-feedback" class="status-banner" role="status" aria-live="polite"></div>
             
-            <!-- Injected dynamic historical card from API based on user's first browser -->
+            <!-- Browser summary appears here after a lookup -->
             <div id="browser-historical-card" class="api-results-wrapper"></div>
         </section>
 
         <!-- Contextual Sidebar / Aside -->
         <aside class="content-section callout-box">
-            <h3>Why Web Nostalgia Matters in Software Engineering</h3>
+            <h3>What early websites can teach us</h3>
             <p>
-                Reflecting on early browsers reminds modern developers of the importance of progressive enhancement, lightweight assets, and universal accessibility. The earliest sites loaded over 28.8k dial-up connections, requiring strict performance budgets and semantic structure.
+                Early websites often loaded over slow dial-up connections. Keeping pages simple and images small helped people use them. These ideas still matter when someone has a slow connection or is browsing on a phone.
             </p>
         </aside>
     </main>
+
+    <dialog id="details-modal" class="details-dialog" aria-labelledby="modal-title">
+        <div class="modal-card">
+            <button type="button" id="modal-close-btn" class="modal-close" aria-label="Close details">&times;</button>
+            <h3 id="modal-title">Technology details</h3>
+            <div id="modal-body"></div>
+        </div>
+    </dialog>
 
     <!-- Semantic Footer -->
     <footer class="site-footer">
         <div class="footer-container">
             <p>&copy; 2026 Josephine Ashdown | Sheffield Hallam University | Web Technologies (55-709700)</p>
-            <p><small>Designed with accessible semantic HTML forms, constraint validation, and mobile-first CSS.</small></p>
+            <p><small>A student form example using HTML, CSS and JavaScript.</small></p>
         </div>
     </footer>
 </body>

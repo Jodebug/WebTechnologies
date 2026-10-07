@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="An interactive web technologies application exploring the history and development of web browsers, web standards, and World Wide Web pioneers.">
+    <meta name="description" content="Explore the history of web browsers, try a Wikipedia search and learn about HTML, CSS and JavaScript.">
     <title>Web Technologies | History of the Web & Browser Explorer</title>
     
     <!-- External Stylesheet (Mobile-First CSS) -->
@@ -40,54 +40,56 @@
          https://www.w3schools.com/html/html5_semantic_elements.asp -->
     <nav class="site-nav" aria-label="Main navigation">
         <div class="nav-container">
+            <div class="section-tabs" data-tabs>
             <a href="#history" class="nav-link">History</a>
-            <a href="#explorer" class="nav-link">Live API Explorer</a>
+            <a href="#explorer" class="nav-link">Explorer</a>
             <a href="#timeline" class="nav-link">Timeline</a>
             <a href="#media-section" class="nav-link">Media</a>
-            <a href="#javascript" class="nav-link">JavaScript Sandbox</a>
+            <a href="#javascript" class="nav-link">JavaScript</a>
             <a href="#references" class="nav-link">References</a>
-            <a href="nostalgia-tech.html" class="nav-link highlight-link">Nostalgia Tech Form</a>
+            </div>
+            <a href="nostalgia-tech.html" class="nav-link highlight-link">Nostalgia form ↗</a>
         </div>
     </nav>
 
     <noscript>
         <div class="alert alert-warning" role="alert">
-            <p><strong>Note:</strong> JavaScript is currently disabled in your browser. All core historical reading content remains accessible, but interactive API searches and dynamic demonstrations require JavaScript.</p>
+            <p><strong>Note:</strong> JavaScript is currently disabled in your browser. You can still read the history sections, but searches and demonstrations need JavaScript.</p>
         </div>
     </noscript>
 
     <!-- Main Content Region -->
     <main id="main-content" tabindex="-1">
         
-        <!-- SECTION 1: History Overview with Semantic Articles -->
+        <!-- Browser history -->
         <!-- Citation: HTML5 Section & Article structure adapted from W3Schools:
              https://www.w3schools.com/html/html5_semantic_elements.asp -->
         <section id="history" class="content-section">
-            <h2>The History of Web Browsers & Open Standards</h2>
+            <h2>How web browsers developed</h2>
             <p class="lead-text">
-                The history of the web browser began alongside the inception of the World Wide Web. In <time datetime="1989">1989</time>, 
-                Sir Tim Berners-Lee formulated the concept of the Web at CERN to allow international universities and researchers to share linked research documents effortlessly. By late <time datetime="1990">1990</time>, he built the first web server and the first graphical browser, dubbed <em>WorldWideWeb</em>.
+                Web browsers developed alongside the World Wide Web. In <time datetime="1989">1989</time>, 
+                Tim Berners-Lee proposed the Web at CERN to help researchers share information. By late <time datetime="1990">1990</time>, he built the first web server and browser, called <em>WorldWideWeb</em>.
             </p>
 
             <div class="articles-grid">
                 <article class="history-card">
-                    <h3>CERN & The Open Web Foundation</h3>
+                    <h3>CERN and the early Web</h3>
                     <p>
-                        Developed on a NeXT computer, the original browser unlocked linked hypertext documents across distributed systems. In <time datetime="1993-04-30">April 1993</time>, CERN made the World Wide Web technology available on a royalty-free basis. This historic decision ensured that any organization or developer could innovate on web protocols without licensing barriers (CERN, n.d.).
+                        The first browser was developed on a NeXT computer and allowed people to follow links between documents. In <time datetime="1993-04-30">April 1993</time>, CERN made the World Wide Web technology available on a royalty-free basis. This allowed people to use and develop the technology without paying licence fees (CERN, n.d.).
                     </p>
                 </article>
 
                 <article class="history-card">
-                    <h3>The Graphical Revolution: Mosaic</h3>
+                    <h3>Mosaic: images alongside text</h3>
                     <p>
-                        Web browsing became accessible to the general public in <time datetime="1993">1993</time> when Marc Andreessen and Eric Bina developed <strong>NCSA Mosaic</strong>. As the first browser to display inline images alongside text, Mosaic transformed the Web from a specialist technical repository into an intuitive global medium (NCSA, n.d.).
+                        Mosaic was released in <time datetime="1993">1993</time> when Marc Andreessen and Eric Bina developed <strong>NCSA Mosaic</strong>. By displaying images alongside text, Mosaic helped make the Web easier to use and more popular (NCSA, n.d.).
                     </p>
                 </article>
 
                 <article class="history-card">
                     <h3>Netscape & The Browser Wars</h3>
                     <p>
-                        Mosaic gave rise to Netscape Navigator in <time datetime="1994">1994</time>, which rapidly became the pre-eminent browser. This triggered the intense "Browser Wars" against Microsoft's Internet Explorer throughout the late 1990s, accelerating the introduction of CSS, JavaScript, and HTML innovations (Mozilla, n.d.).
+                        Netscape Navigator followed in <time datetime="1994">1994</time>, and quickly became popular. Its competition with Microsoft's Internet Explorer became known as the "browser wars". During this period, browsers added features and support for technologies such as JavaScript and CSS (Mozilla, n.d.).
                     </p>
                 </article>
             </div>
@@ -96,22 +98,22 @@
             <!-- Citation: HTML5 Aside element adapted from W3Schools:
                  https://www.w3schools.com/html/html5_semantic_elements.asp -->
             <aside class="callout-box">
-                <h4>Did You Know?</h4>
+                <h3>Did You Know?</h3>
                 <p>
-                    JavaScript was created in just 10 days in May 1995 by Brendan Eich at Netscape Communications. It was initially named Mocha, then LiveScript, and finally renamed JavaScript to capitalize on the popularity of Java.
+                    JavaScript was created in <mark>just 10 days</mark> in May 1995 by Brendan Eich at Netscape Communications. It was initially named Mocha, then LiveScript, and finally renamed JavaScript to link its name with the popularity of Java.
                 </p>
             </aside>
         </section>
 
-        <!-- SECTION 2: LIVE API EXPLORER (Meets 15% API & 15% Forms Criteria) -->
+        <!-- Wikipedia search -->
         <!-- Citation: HTML5 Form controls adapted from W3Schools HTML Forms:
              https://www.w3schools.com/html/html_forms.asp
              Fetch API integration adapted from W3Schools JS Fetch API:
              https://www.w3schools.com/js/js_api_fetch.asp -->
         <section id="explorer" class="content-section card-surface">
-            <h2>Live Web History & Tech API Explorer</h2>
+            <h2>Explore a browser or web technology</h2>
             <p>
-                Query the live Wikipedia REST API to dynamically retrieve historical summaries, verified launch dates, and architectural archives of famous web technologies, browsers, and pioneers.
+                Look up summaries of web technologies, browsers, and pioneers on Wikipedia. Choose a featured topic or enter an article name. Bundled summaries are labelled when a live lookup is unavailable.
             </p>
 
             <!-- HTML5 Search Form driving API -->
@@ -179,11 +181,11 @@
 
             <!-- Dynamic API Results Container -->
             <div id="api-results-container" class="api-results-wrapper">
-                <!-- Injected via JavaScript fetch API -->
+                <p class="explorer-empty">Start with a featured topic, such as Tim Berners-Lee or NCSA Mosaic.</p>
             </div>
         </section>
 
-        <!-- SECTION 3: Web Browser Timeline Table -->
+        <!-- Browser timeline -->
         <!-- Citation: Accessible HTML Table with caption, scope, and semantic thead/tbody:
              https://www.w3schools.com/html/html_tables.asp -->
         <section id="timeline" class="content-section">
@@ -249,22 +251,22 @@
             </div>
         </section>
 
-        <!-- SECTION 4: Media & Rich Illustrations -->
+        <!-- Media -->
         <!-- Citation: HTML5 Figure and Figcaption adapted from W3Schools:
              https://www.w3schools.com/html/html5_semantic_elements.asp -->
         <section id="media-section" class="content-section">
-            <h2>Multimedia Archives</h2>
+            <h2>Videos and images</h2>
             
             <div class="media-grid">
                 <div class="media-card">
-                    <h3>Documentary Video: Birth of the Web</h3>
-                    <p>Watch an archived summary explaining the development of the World Wide Web:</p>
+                    <h3>The evolution of web apps</h3>
+                    <p>Watch Dylan Beattie explain how web apps have changed:</p>
                     <div class="video-container">
                         <!-- Citation: Responsive iframe container adapted from W3Schools:
                              https://www.w3schools.com/howto/howto_css_responsive_iframes.asp -->
                         <iframe 
                             src="https://www.youtube.com/embed/a_1cV7hg5G8" 
-                            title="Video explaining the history of the World Wide Web" 
+                            title="The Evolution of Web Apps 1992–2024 by Dylan Beattie" 
                             loading="lazy" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen>
@@ -273,42 +275,42 @@
                 </div>
 
                 <div class="media-card">
-                    <h3>Architectural Illustration</h3>
+                    <h3>Web technologies illustration</h3>
                     <figure>
                         <img 
                             src="Image1.png" 
-                            alt="Visual illustration representing modern web technologies, client-server communication, and the World Wide Web" 
+                            alt="Illustration of web technologies and connections between clients and servers" 
                             loading="lazy"
                         >
-                        <figcaption>Figure 1: Architectural representation of Web Technologies and interconnected client-server ecosystems.</figcaption>
+                        <figcaption>Figure 1: An illustration of web technologies and client-server connections.</figcaption>
                     </figure>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 5: Interactive JavaScript Demonstration Sandbox -->
+        <!-- JavaScript examples -->
         <!-- Citation: HTML5 Details and Summary elements adapted from W3Schools:
              https://www.w3schools.com/tags/tag_details.asp -->
         <section id="javascript" class="content-section">
-            <h2>JavaScript: Core Front-End Architecture</h2>
+            <h2>Try some JavaScript</h2>
             <p>
-                Expand each section below to review foundational concepts as explained in W3Schools tutorials, then test interactive DOM manipulation functions:
+                Open the sections below for a short explanation, then try the buttons to see JavaScript in action.
             </p>
 
             <div class="details-group">
                 <details>
-                    <summary>The Three Core Web Languages</summary>
+                    <summary>HTML, CSS and JavaScript</summary>
                     <p>
-                        <strong>HTML</strong> defines content structure. <strong>CSS</strong> controls styling, responsive layouts, and presentation. <strong>JavaScript</strong> provides behavioral logic and interactivity. Together, they form the core front-end foundation standardized by the W3C and ECMA International.
+                        <strong>HTML</strong> gives a page its structure and content. <strong>CSS</strong> changes how it looks. <strong>JavaScript</strong> makes it respond to actions such as clicking a button.
                     </p>
                     <pre><code>// Citation: Class toggle adapted from W3Schools JS classList:
 document.body.classList.toggle("dark-mode");</code></pre>
                 </details>
 
                 <details>
-                    <summary>Modern DOM Manipulation &amp; Fetch API</summary>
+                    <summary>Getting data and updating a page</summary>
                     <p>
-                        Modern applications use the standardized <code>fetch()</code> API to retrieve asynchronous JSON data from REST endpoints, dynamically mutating the DOM using <code>document.createElement()</code> and <code>textContent</code> without refreshing the page.
+                        The <code>fetch()</code> function gets data from an API. JavaScript can then use <code>document.createElement()</code> to add elements and <code>textContent</code> to display the results without reloading the page.
                     </p>
                     <pre><code>// Citation: Fetch API async/await pattern adapted from W3Schools:
 async function loadData(url) {
@@ -319,31 +321,31 @@ async function loadData(url) {
                 </details>
 
                 <details>
-                    <summary>Scope: ES6 let and const vs legacy var</summary>
+                    <summary>Using let and const</summary>
                     <p>
-                        Introduced in ECMAScript 2015 (ES6), <code>let</code> and <code>const</code> provide block scoping confined to curly braces <code>{}</code>, eliminating subtle variable hoisting bugs associated with function-scoped <code>var</code>.
+                        Use <code>let</code> when a variable needs to be reassigned and <code>const</code> when it does not. Both are limited to the block where they are declared, such as the code inside an <code>if</code> statement.
                     </p>
                     <pre><code>const APP_NAME = "WebTech";
 let userCount = 42;</code></pre>
                 </details>
             </div>
 
-            <h3>Test Interactive Script Demonstrations</h3>
+            <h3>Try the examples</h3>
             <div class="demo-controls" data-js-controls>
                 <button type="button" id="text-demo" class="btn btn-secondary">Update Text</button>
-                <button type="button" id="html-demo" class="btn btn-secondary">Formatted Markup</button>
-                <button type="button" id="calculate-demo" class="btn btn-secondary">Compute Expression</button>
-                <button type="button" id="alert-demo" class="btn btn-secondary">Accessible Dialog</button>
-                <button type="button" id="console-demo" class="btn btn-secondary">Console Logging</button>
+                <button type="button" id="html-demo" class="btn btn-secondary">Show formatted text</button>
+                <button type="button" id="calculate-demo" class="btn btn-secondary">Calculate a sum</button>
+                <button type="button" id="alert-demo" class="btn btn-secondary">Show an alert</button>
+                <button type="button" id="console-demo" class="btn btn-secondary">Write to the console</button>
                 <button type="button" id="print-demo" class="btn btn-secondary">Print Page</button>
             </div>
             
             <p id="demo-output" class="status-banner" aria-live="polite">Your interactive output will appear here.</p>
         </section>
 
-        <!-- SECTION 6: Academic References & Citations -->
+        <!-- References -->
         <section id="references" class="content-section">
-            <h2>References &amp; Academic Citations</h2>
+            <h2>References</h2>
             <ul class="citation-list">
                 <li>
                     CERN (n.d.) <em>A Short History of the Web</em>. Available at: 
@@ -370,23 +372,21 @@ let userCount = 42;</code></pre>
     </main>
 
     <!-- Accessible Modal for Extended API Details -->
-    <!-- Citation: HTML5 Dialog and Modal accessibility adapted from W3Schools How TO - Modal Boxes:
+    <!-- Reference: W3Schools modal example; this page uses a native HTML dialog:
          https://www.w3schools.com/howto/howto_css_modals.asp -->
-    <div id="details-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <dialog id="details-modal" class="details-dialog" aria-labelledby="modal-title">
         <div class="modal-card">
-            <button type="button" id="modal-close-btn" class="modal-close" aria-label="Close details modal">&times;</button>
-            <h3 id="modal-title">Technology Details</h3>
-            <div id="modal-body">
-                <!-- Injected via JavaScript -->
-            </div>
+            <button type="button" id="modal-close-btn" class="modal-close" aria-label="Close details">&times;</button>
+            <h3 id="modal-title">Technology details</h3>
+            <div id="modal-body"></div>
         </div>
-    </div>
+    </dialog>
 
     <!-- Semantic Footer -->
     <footer class="site-footer">
         <div class="footer-container">
             <p>&copy; 2026 Josephine Ashdown | Sheffield Hallam University | Web Technologies (55-709700)</p>
-            <p><small>Built following W3C standards, WCAG 2.1 AA accessibility guidelines, and mobile-first responsive architecture.</small></p>
+            <p><small>Built with HTML, CSS and JavaScript, with responsive layouts and keyboard controls.</small></p>
         </div>
     </footer>
 </body>

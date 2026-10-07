@@ -1,13 +1,13 @@
 /* ==========================================================================
-   WEB TECHNOLOGIES (55-709700) – MASTER APPLICATION SCRIPT
+   Web Technologies: JavaScript
    Author: Josephine Ashdown
-   Architecture: Vanilla ES6+, Fetch API, Event Delegation, WCAG a11y
+   Tabs, theme, searches and form examples
    ========================================================================== */
 
 "use strict";
 
 /* ==========================================================================
-   MODULE 1: W3C / W3Schools Citation Constants & Endpoints
+   1. API settings and saved summaries
    Citation: Fetch API pattern adapted from W3Schools JS Fetch API:
    https://www.w3schools.com/js/js_api_fetch.asp
    ========================================================================== */
@@ -19,8 +19,7 @@ const API_CONFIG = {
 };
 
 /**
- * Curated Fallback Archive: Guarantees zero application downtime
- * if campus firewall, CORS, or external API endpoints experience outages.
+ * Bundled summaries for selected topics when a live lookup is unavailable.
  */
 const HISTORICAL_FALLBACK_DATABASE = {
     "worldwideweb": {
@@ -96,9 +95,10 @@ const HISTORICAL_FALLBACK_DATABASE = {
 };
 
 /* ==========================================================================
-   MODULE 2: DOM Loaded Initialization
+   2. Set up the page when it has loaded
    ========================================================================== */
 document.addEventListener("DOMContentLoaded", () => {
+    initTabs();
     initThemeManager();
     initApiExplorer();
     initTableFilter();
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================================================
-   MODULE 3: Dark Mode Theme Manager (with localStorage persistence)
+   3. Dark mode and saved theme preference
    Citation: Dark Mode with localStorage adapted from W3Schools How TO:
    https://www.w3schools.com/howto/howto_js_toggle_dark_mode.asp
    https://www.w3schools.com/js/js_api_web_storage.asp
@@ -118,7 +118,8 @@ function initThemeManager() {
     if (!themeBtn) return;
 
     // Check saved user preference in localStorage
-    const savedTheme = localStorage.getItem("webtech-theme");
+    let savedTheme;
+    try { savedTheme = localStorage.getItem("webtech-theme"); } catch { /* Storage may be disabled. */ }
     if (savedTheme === "dark") {
         document.body.classList.add("dark-mode");
         themeBtn.setAttribute("aria-pressed", "true");
@@ -128,7 +129,7 @@ function initThemeManager() {
     themeBtn.addEventListener("click", () => {
         const isDark = document.body.classList.toggle("dark-mode");
         themeBtn.setAttribute("aria-pressed", String(isDark));
-        localStorage.setItem("webtech-theme", isDark ? "dark" : "light");
+        try { localStorage.setItem("webtech-theme", isDark ? "dark" : "light"); } catch { /* Theme still works without storage. */ }
 
         themeBtn.innerHTML = isDark
             ? '<span class="theme-icon" aria-hidden="true">☀️</span> Light Mode'
@@ -137,7 +138,7 @@ function initThemeManager() {
 }
 
 /* ==========================================================================
-   MODULE 4: Live Third-Party API Integration (Meets 15% API Criterion)
+   4. Wikipedia search
    Citation: Async/Await Fetch API pattern adapted from W3Schools JS Async:
    https://www.w3schools.com/js/js_async.asp
    https://www.w3schools.com/js/js_api_fetch.asp
@@ -155,8 +156,8 @@ function initApiExplorer() {
     searchForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const query = queryInput.value.trim();
-        if (!query) {
-            showStatus(statusBanner, "Please enter a valid browser or technology name to search.", "error");
+        if (query.length < 2) {
+            showStatus(statusBanner, "Please enter at least two characters to search.", "error");
             return;
         }
         await fetchHistoricalData(query, statusBanner, resultsContainer);
@@ -167,7 +168,7 @@ function initApiExplorer() {
         presetSelect.addEventListener("change", async () => {
             const selectedSlug = presetSelect.value;
             if (!selectedSlug) return;
-            queryInput.value = presetSelect.options[presetSelect.selectedIndex].text;
+            queryInput.value = selectedSlug.replace(/_/g, " ");
             await fetchHistoricalData(selectedSlug, statusBanner, resultsContainer);
         });
     }
@@ -179,91 +180,92 @@ function initApiExplorer() {
  * @param {HTMLElement} statusEl - Banner element for accessible status updates
  * @param {HTMLElement} resultsEl - Container for rendering dynamic cards
  */
+// Each result area owns its request so an older response cannot replace a newer one.
+const activeRequests = new WeakMap();
+const TOPIC_ALIASES = {
+    "ncsa mosaic": "Mosaic_(web_browser)", "mosaic": "Mosaic_(web_browser)",
+    "mozilla firefox": "Firefox", "firefox": "Firefox", "css": "CSS",
+    "cascading style sheets": "CSS", "safari": "Safari_(web_browser)",
+    "opera": "Opera_(web_browser)"
+};
 async function fetchHistoricalData(query, statusEl, resultsEl) {
-    const formattedSlug = encodeURIComponent(query.replace(/\s+/g, "_"));
-    const endpoint = `${API_CONFIG.wikipediaBase}${formattedSlug}`;
-
-    // Display accessible loading indicator
-    showStatus(statusEl, `Querying Web Technology API for "${query}"...`, "info");
-    resultsEl.innerHTML = '<div class="spinner" role="progressbar" aria-label="Loading content"></div>';
-
+    if (!resultsEl) return;
+    activeRequests.get(resultsEl)?.abort();
+    const controller = new AbortController();
+    activeRequests.set(resultsEl, controller);
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const cleanQuery = query.toLowerCase().replace(/_/g, " ").trim();
+    const title = TOPIC_ALIASES[cleanQuery] || query.replace(/\s+/g, "_");
+    showStatus(statusEl, `Looking up “${query}”…`, "info");
+    resultsEl.replaceChildren();
+    resultsEl.setAttribute("aria-busy", "true");
     try {
-        const response = await fetch(endpoint, { headers: API_CONFIG.headers });
-
-        if (!response.ok) {
-            if (response.status === 404) {
-                throw new Error(`No historical record found for "${query}". Try searching for Mosaic, Netscape Navigator, or Tim Berners-Lee.`);
-            }
-            throw new Error(`API Network error (Status: ${response.status}). Please check your connection.`);
-        }
-
+        const response = await fetch(API_CONFIG.wikipediaBase + encodeURIComponent(title), {
+            headers: API_CONFIG.headers, signal: controller.signal
+        });
+        if (!response.ok) throw new Error(response.status === 404 ? "Topic not found. Try a featured topic or the full article name." : "Wikipedia is unavailable. Please try again.");
         const data = await response.json();
-        
-        // Render successful results
-        showStatus(statusEl, `Successfully retrieved historical record for "${data.title}" from Wikipedia REST API.`, "success");
+        if (!data.title || data.type === "disambiguation") throw new Error("Please use a more specific topic name.");
+        if (activeRequests.get(resultsEl) !== controller) return;
+        showStatus(statusEl, `Live Wikipedia result: ${data.title}.`, "success");
         renderApiResultCard(data, resultsEl);
-
-    } catch (err) {
-        // Intelligent Fallback: Check local archive database if offline or network blocked
-        const cleanQuery = query.toLowerCase().replace(/_/g, " ").trim();
-        const fallbackKey = Object.keys(HISTORICAL_FALLBACK_DATABASE).find(k => cleanQuery.includes(k) || k.includes(cleanQuery));
-
-        if (fallbackKey) {
-            const fallbackItem = HISTORICAL_FALLBACK_DATABASE[fallbackKey];
-            showStatus(statusEl, `Retrieved historical record for "${fallbackItem.title}" (via Resilient Local Archive Cache).`, "info");
-            renderApiResultCard(fallbackItem, resultsEl);
+    } catch (error) {
+        if (activeRequests.get(resultsEl) !== controller) return;
+        const fallback = Object.entries(HISTORICAL_FALLBACK_DATABASE).find(([key, item]) =>
+            cleanQuery === key || cleanQuery === item.title.toLowerCase() ||
+            title === item.content_urls.desktop.page.split("/wiki/")[1]);
+        if (fallback) {
+            showStatus(statusEl, "Live lookup unavailable. Showing a bundled summary; this is not a live API result.", "info");
+            renderApiResultCard(fallback[1], resultsEl);
         } else {
-            showStatus(statusEl, err.message, "error");
-            resultsEl.innerHTML = `
-                <div class="callout-box" style="border-left-color: var(--color-error);">
-                    <h4>Lookup Notice</h4>
-                    <p>${err.message}</p>
-                    <p><small>Tip: You can select a verified topic from the preset dropdown (e.g. WorldWideWeb, Mosaic, Netscape, Firefox, Chrome, Tim Berners-Lee, Brendan Eich).</small></p>
-                </div>
-            `;
+            showStatus(statusEl, error.name === "AbortError" ? "The lookup timed out. Please try again." : error.message, "error");
         }
+    } finally {
+        clearTimeout(timeout);
+        if (activeRequests.get(resultsEl) === controller) resultsEl.setAttribute("aria-busy", "false");
     }
 }
 
-/**
- * Dynamically builds accessible HTML card for API payload
- * Citation: DOM Element Creation adapted from W3Schools HTML DOM:
- * https://www.w3schools.com/js/js_htmldom_nodes.asp
- */
+// External content is inserted as text, never interpreted as HTML.
+function safeWikipediaUrl(value) {
+    try {
+        const url = new URL(value);
+        if (url.protocol === "https:" && url.hostname === "en.wikipedia.org") return url.href;
+    } catch { /* Ignore malformed external URLs. */ }
+    return null;
+}
 function renderApiResultCard(item, container) {
-    container.innerHTML = ""; // Clear existing output
-
     const card = document.createElement("article");
     card.className = "api-card";
-
-    // Media thumbnail if available
-    let mediaHtml = "";
-    if (item.thumbnail && item.thumbnail.source) {
-        mediaHtml = `
-            <div class="api-card-media">
-                <img src="${item.thumbnail.source}" alt="${item.title} archive illustration" loading="lazy">
-            </div>
-        `;
+    const content = document.createElement("div");
+    content.className = "api-card-content";
+    const heading = document.createElement("h3");
+    heading.className = "api-card-title";
+    heading.textContent = item.title;
+    const description = document.createElement("p");
+    description.textContent = item.description || "Historical overview";
+    const extract = document.createElement("p");
+    extract.textContent = item.extract || "No summary is available.";
+    const url = safeWikipediaUrl(item.content_urls?.desktop?.page);
+    content.append(heading, description, extract);
+    if (url) {
+        const link = document.createElement("a");
+        link.href = url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Read the article on Wikipedia (new tab)";
+        content.append(link);
     }
-
-    const description = item.description ? `<p><em>${item.description}</em></p>` : "";
-    const extractText = item.extract ? item.extract : "No summary description available for this record.";
-
-    card.innerHTML = `
-        ${mediaHtml}
-        <div class="api-card-content">
-            <h3 class="api-card-title">${item.title}</h3>
-            ${description}
-            <p class="api-card-desc">${extractText}</p>
-            <div class="card-footer-actions">
-                <button type="button" class="btn btn-secondary btn-sm open-details-btn" data-title="${encodeURIComponent(item.title)}" data-extract="${encodeURIComponent(extractText)}" data-url="${item.content_urls ? item.content_urls.desktop.page : '#'}">
-                    View Full Archive Details
-                </button>
-            </div>
-        </div>
-    `;
-
-    container.appendChild(card);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "btn btn-secondary open-details-btn";
+    button.textContent = "View details";
+    button.dataset.title = item.title;
+    button.dataset.extract = extract.textContent;
+    button.dataset.url = url || "";
+    content.append(button);
+    card.append(content);
+    container.replaceChildren(card);
 }
 
 /**
@@ -276,61 +278,43 @@ function showStatus(element, message, type) {
 }
 
 /* ==========================================================================
-   MODULE 5: Modal Manager for Detailed API Views
+   5. Open and close the details dialog
    Citation: Accessible Modal Box adapted from W3Schools How TO:
    https://www.w3schools.com/howto/howto_css_modals.asp
    ========================================================================== */
 function initModalManager() {
     const modal = document.getElementById("details-modal");
-    const closeBtn = document.getElementById("modal-close-btn");
-    const modalTitle = document.getElementById("modal-title");
-    const modalBody = document.getElementById("modal-body");
-
-    if (!modal || !closeBtn) return;
-
-    // Delegate click on dynamically created buttons
-    document.addEventListener("click", (e) => {
-        const btn = e.target.closest(".open-details-btn");
-        if (!btn) return;
-
-        const title = decodeURIComponent(btn.dataset.title);
-        const extract = decodeURIComponent(btn.dataset.extract);
-        const url = btn.dataset.url;
-
-        modalTitle.textContent = title;
-        modalBody.innerHTML = `
-            <p class="lead-text">${extract}</p>
-            <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--border-color);">
-            <p>
-                <strong>External Reference:</strong> 
-                <a href="${url}" target="_blank" rel="noopener noreferrer">Read complete article on Wikipedia &rarr;</a>
-            </p>
-        `;
-
-        modal.hidden = false;
-        closeBtn.focus();
-    });
-
-    const closeModal = () => {
-        modal.hidden = true;
-    };
-
-    closeBtn.addEventListener("click", closeModal);
-
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    // Keyboard support: Escape key closes modal (WCAG 2.1 AA)
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !modal.hidden) {
-            closeModal();
+    if (!modal) return;
+    let opener;
+    document.addEventListener("click", (event) => {
+        const button = event.target.closest(".open-details-btn");
+        if (!button) return;
+        opener = button;
+        document.getElementById("modal-title").textContent = button.dataset.title;
+        const body = document.getElementById("modal-body");
+        const text = document.createElement("p");
+        text.textContent = button.dataset.extract;
+        body.replaceChildren(text);
+        const url = safeWikipediaUrl(button.dataset.url);
+        if (url) {
+            const link = document.createElement("a");
+            link.href = url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = "Read on Wikipedia (new tab)";
+            body.append(link);
         }
+        modal.showModal();
+    });
+    document.getElementById("modal-close-btn").addEventListener("click", () => modal.close());
+    modal.addEventListener("close", () => opener?.focus());
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) modal.close();
     });
 }
 
 /* ==========================================================================
-   MODULE 6: Form Handling & Validation on Nostalgia Tech
+   6. Nostalgia form
    Citation: Form Validation adapted from W3Schools HTML Form Validation:
    https://www.w3schools.com/js/js_validation.asp
    ========================================================================== */
@@ -397,7 +381,7 @@ function initNostalgiaForm() {
 
         showStatus(
             feedbackBanner, 
-            `Thank you, ${fname}! Your nostalgia score of ${rating}/10 has been logged. Now fetching historical archive data for your first browser (${firstBrowser})...`, 
+            `Thank you, ${fname}! Your score is ${rating}/10. Your form details have not been saved or sent. Looking up your first browser (${firstBrowser})…`, 
             "success"
         );
 
@@ -413,12 +397,17 @@ function initNostalgiaForm() {
         if (charCount) charCount.textContent = "0 / 500 characters";
         if (memoryHint) memoryHint.textContent = "";
         if (feedbackBanner) feedbackBanner.className = "status-banner";
-        if (browserResultContainer) browserResultContainer.innerHTML = "";
+        if (browserResultContainer) {
+            activeRequests.get(browserResultContainer)?.abort();
+            activeRequests.delete(browserResultContainer);
+            browserResultContainer.replaceChildren();
+            browserResultContainer.setAttribute("aria-busy", "false");
+        }
     });
 }
 
 /* ==========================================================================
-   MODULE 7: Table Real-Time Filter
+   7. Filter the browser table
    Citation: Table Search Filter adapted from W3Schools How TO - Filter Table:
    https://www.w3schools.com/howto/howto_js_filter_table.asp
    ========================================================================== */
@@ -447,7 +436,7 @@ function initTableFilter() {
 }
 
 /* ==========================================================================
-   MODULE 8: Interactive JavaScript Learning Demonstrations
+   8. JavaScript examples
    Citation: JS DOM Demonstrations adapted from W3Schools JS Output:
    https://www.w3schools.com/js/js_output.asp
    ========================================================================== */
@@ -462,12 +451,12 @@ function initDemoSandbox() {
 
     bindDemo("text-demo", () => {
         outputEl.className = "status-banner visible info";
-        outputEl.textContent = "JavaScript modified the DOM using document.getElementById().textContent.";
+        outputEl.textContent = "This text was changed using JavaScript and textContent.";
     });
 
     bindDemo("html-demo", () => {
         outputEl.className = "status-banner visible success";
-        outputEl.innerHTML = "<strong>Formatted Output:</strong> Successfully injected safe markup using <code>innerHTML</code>.";
+        outputEl.innerHTML = "<strong>This text is bold.</strong> The example uses <code>innerHTML</code> to add HTML written in the script.";
     });
 
     bindDemo("calculate-demo", () => {
@@ -479,17 +468,69 @@ function initDemoSandbox() {
 
     bindDemo("alert-demo", () => {
         outputEl.className = "status-banner visible info";
-        outputEl.textContent = "Demonstration triggered an alert dialog.";
-        window.alert("This is an accessible JavaScript alert dialog demonstrating client-side modal notification.");
+        outputEl.textContent = "An alert has been opened.";
+        window.alert("Hello! This message was opened using window.alert().");
     });
 
     bindDemo("console-demo", () => {
-        console.log("Web Technologies: Console logging test executed successfully.");
+        console.log("Hello from the Web Technologies page!");
         outputEl.className = "status-banner visible info";
-        outputEl.textContent = "Message printed to Developer Tools console (Press F12 to inspect).";
+        outputEl.textContent = "Open your browser’s developer tools and select Console to see the message.";
     });
 
     bindDemo("print-demo", () => {
         window.print();
     });
+}
+
+/* Tab navigation enhances ordinary links; all sections stay readable without JS.
+   Pattern reference: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/ */
+function initTabs() {
+    const list = document.querySelector("[data-tabs]");
+    if (!list) return;
+    const tabs = [...list.querySelectorAll('a[href^="#"]')];
+    const panels = tabs.map(tab => document.querySelector(tab.getAttribute("href")));
+    list.setAttribute("role", "tablist");
+    list.setAttribute("aria-label", "Explore web technologies");
+    tabs.forEach((tab, index) => {
+        tab.id = "tab-" + panels[index].id;
+        tab.setAttribute("role", "tab");
+        tab.setAttribute("aria-controls", panels[index].id);
+        panels[index].setAttribute("role", "tabpanel");
+        panels[index].setAttribute("aria-labelledby", tab.id);
+        panels[index].tabIndex = 0;
+        tab.addEventListener("click", event => {
+            event.preventDefault();
+            if (location.hash !== tab.hash) location.hash = tab.hash;
+            activate(index);
+        });
+        tab.addEventListener("keydown", event => {
+            let next;
+            if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+            if (event.key === "ArrowLeft") next = (index + tabs.length - 1) % tabs.length;
+            if (event.key === "Home") next = 0;
+            if (event.key === "End") next = tabs.length - 1;
+            if (event.key === " ") { event.preventDefault(); tab.click(); return; }
+            if (next !== undefined) {
+                event.preventDefault();
+                tabs[next].focus();
+                tabs[next].click();
+            }
+        });
+    });
+    function activate(index) {
+        tabs.forEach((tab, i) => {
+            tab.setAttribute("aria-selected", String(i === index));
+            tab.tabIndex = i === index ? 0 : -1;
+            panels[i].hidden = i !== index;
+        });
+    }
+    function followHash() {
+        const index = panels.findIndex(panel => "#" + panel.id === location.hash);
+        if (index >= 0) activate(index);
+        else if (!location.hash) activate(0);
+    }
+    activate(0);
+    followHash();
+    window.addEventListener("hashchange", followHash);
 }

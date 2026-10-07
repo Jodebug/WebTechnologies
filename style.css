@@ -1,16 +1,16 @@
 /* ==========================================================================
-   WEB TECHNOLOGIES (55-709700) – MASTER STYLESHEET
-   Architecture: Mobile-First Responsive Design (W3C / WCAG 2.1 AA Compliant)
+   Web Technologies: styles
+   Base styles for small screens; media queries adjust larger layouts
    Author: Josephine Ashdown
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. CSS Custom Properties (Design Tokens & Color Palette)
+   1. Colours, fonts and spacing
    Citation: CSS Variables pattern adapted from W3Schools CSS Variables:
    https://www.w3schools.com/css/css3_variables.asp
    -------------------------------------------------------------------------- */
 :root {
-    /* Brand Theme Colors */
+    /* Main colours */
     --color-primary: #1d1a45;       /* Deep Navy Blue */
     --color-primary-hover: #2e2a6d;
     --color-secondary: #f33535;     /* Accent Red */
@@ -283,7 +283,7 @@ body.dark-mode .callout-box h4 {
 }
 
 /* --------------------------------------------------------------------------
-   7. Buttons & Form Controls (Touch Targets >= 44px for Mobile WCAG)
+   7. Buttons and form controls
    Citation: CSS Buttons adapted from W3Schools CSS Buttons:
    https://www.w3schools.com/css/css3_buttons.asp
    -------------------------------------------------------------------------- */
@@ -338,7 +338,7 @@ body.dark-mode .callout-box h4 {
 }
 
 /* --------------------------------------------------------------------------
-   8. Form Styles & Attribute Selectors (Meets Forms Criterion)
+   8. Forms and input styles
    Citation: Form Styling & Attribute Selectors adapted from W3Schools:
    https://www.w3schools.com/css/css_form.asp
    https://www.w3schools.com/css/css_attribute_selectors.asp
@@ -491,7 +491,7 @@ input[type="checkbox"] {
 }
 
 /* --------------------------------------------------------------------------
-   9. Live API Results & Dynamic Cards (Meets API Criterion)
+   9. Search results and status messages
    Citation: CSS Grid Cards adapted from W3Schools CSS Grid:
    https://www.w3schools.com/css/css_grid.asp
    -------------------------------------------------------------------------- */
@@ -828,7 +828,7 @@ pre {
 }
 
 /* ==========================================================================
-   15. PROGRESSIVE ENHANCEMENT (MOBILE-FIRST BREAKPOINTS)
+   15. Layout changes for larger screens
    Citation: CSS Media Queries min-width pattern adapted from W3Schools:
    https://www.w3schools.com/css/css_rwd_mediaqueries.asp
    ========================================================================== */
@@ -903,4 +903,42 @@ pre {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+/* Tabs: mobile-first layout, selected-state attribute selector and focus states.
+   Pattern reference: https://www.w3.org/WAI/ARIA/apg/patterns/tabs/ */
+[hidden] { display: none !important; }
+.site-header { padding: 1.35rem 1rem; text-align: left; }
+.header-content { position: relative; max-width: 1120px; }
+.site-header h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.site-header .tagline { max-width: 65ch; margin-bottom: .75rem; }
+.site-nav { background: var(--bg-surface); border-bottom: 1px solid var(--border-color); }
+.nav-container { max-width: 1152px; margin: auto; padding: .6rem 1rem; flex-wrap: wrap; white-space: normal; justify-content: space-between; overflow: visible; }
+.section-tabs { display: flex; flex-wrap: wrap; gap: .35rem; }
+.site-nav .nav-link { color: var(--text-primary); display: inline-flex; align-items: center; min-height: 44px; border: 1px solid transparent; }
+.site-nav .nav-link:hover { background: var(--bg-surface-alt); color: var(--text-primary); }
+.site-nav .nav-link[aria-selected="true"], .site-nav .nav-link[aria-current="page"] { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+.site-nav .highlight-link { background: var(--bg-surface-alt); border-color: var(--border-color); }
+main { max-width: 1152px; min-height: 55vh; }
+.content-section { scroll-margin-top: 9rem; }
+.content-section > p { max-width: 80ch; }
+.content-section[role="tabpanel"] { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: clamp(1rem, 3vw, 2rem); }
+mark { background: #fff0ba; color: #3b3007; padding: .1em .3em; border-radius: 3px; }
+.explorer-empty { padding: 1.5rem; border: 1px dashed var(--border-color); border-radius: 8px; color: var(--text-muted); }
+.api-card-content .open-details-btn { display: block; margin-top: 1rem; }
+.details-dialog { width: min(650px, calc(100% - 2rem)); max-height: 90vh; padding: 0; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-surface); color: var(--text-primary); }
+.details-dialog::backdrop { background: rgb(0 0 0 / .65); }
+.details-dialog .modal-card { max-height: 85vh; border-radius: 0; box-shadow: none; }
+.modal-close { min-width: 44px; min-height: 44px; }
+body.dark-mode { --color-error: #fca5a5; --color-success: #86efac; --color-warning: #fcd34d; }
+@media (min-width: 768px) {
+    .site-header .tagline { padding-right: 10rem; }
+    .site-header #theme-button { position: absolute; right: 0; top: .6rem; }
+    .section-tabs { flex-wrap: nowrap; }
+}
+@media print {
+    .content-section[hidden] { display: block !important; }
+    .site-nav, #theme-button, .details-dialog, .form-actions, .demo-buttons { display: none !important; }
+    body, body.dark-mode { background: white; color: black; --text-primary: black; --text-muted: #333; --bg-surface: white; }
+    .content-section { break-inside: avoid; }
 }

@@ -1,50 +1,32 @@
-# Web Technologies (55-709700) – Web Application Project
+# Web Technologies
 
-## 1. Project Overview & Domain
+A student web application exploring browser history, web standards and early internet memories. Built with HTML, mobile-first CSS and vanilla JavaScript.
 
-Accessible responsive aplication to demonstrates the core front-end web development principles taught across Weeks 1 to 7
+## Open and edit
 
+Extract the whole folder, then open `index.html` in a browser. Keep the files together so relative links and the image work. In VS Code, open the folder and use Live Server if you want automatic refresh. No build, package installation or API key is required. Wikipedia and YouTube need an internet connection; bundled summaries are available for selected topics when the API cannot be reached.
 
-## 2. File & Directory Structure
+## Files
 
-```
-WebTechnologies/
-├── index.html            # Main application interface: History, API Explorer & Timeline
-├── nostalgia-tech.html   # Community archive & advanced HTML form interface
-├── style.css             # Master mobile-first external stylesheet
-├── script.js             # Modular vanilla JavaScript (API layer, DOM, validation)
-├── Image1.png            # Web technologies architectural illustration
-├── README.md             # Project documentation & grading rubric alignment
-```
+- `index.html`: six tabs with browser history, a Wikipedia search, a timeline, media, JavaScript examples and references.
+- `nostalgia-tech.html`: demonstration form; choosing a browser starts a Wikipedia search. Personal details and memories are not transmitted or saved.
+- `style.css`: main stylesheet. Edit this file for appearance changes.
+- `script.js`: tab navigation, API requests, dialogs, theme, filtering and forms.
+- `Image1.png`: existing illustration.
+- `web-technologies.css` and `sytle.css`: compatibility stylesheets pointing to `style.css`.
+- `citations.txt`: existing tutorial references.
+- `REVIEW.md`: changes, review notes and checks still to do.
 
-## 3. Rubric Alignment (Distinction Standards: 70% – 100%)
+## Behaviour
 
-| Criterion | Weight | How This Project Meets Distinction |
-| :--- | :---: | :--- |
-| **HTML**
-| **CSS Quality**
-| **Use of HTML Forms** 
-| **JavaScript**
-| **Use of API** | Connects to the Wikipedia REST API (`https://en.wikipedia.org/api/rest_v1/page/summary/`). 
-| **UI / UX & Accessibility**
+Tabs support Left/Right arrows, Home/End, Enter and Space. Existing hashes such as `#explorer` select the correct panel, including browser Back/Forward. With JavaScript disabled, reading sections remain visible. Printing includes all main sections.
 
-## 5. Academic Integrity & W3Schools Tutorial Citations
+API results are displayed as text rather than HTML. Requests have a ten-second timeout and only the latest search result is shown. Saved summaries are labelled when the live search is unavailable. A native dialog supports Escape, keeping keyboard focus inside it and returning focus to the button when closed.
 
-1. **HTML5 Semantic Elements:**  
-   Adapted from *W3Schools HTML5 Semantic Elements*  
-   https://www.w3schools.com/html/html5_semantic_elements.asp
-2. **Mobile-First CSS & Media Queries:**  
-   Adapted from *W3Schools CSS Responsive Web Design*  
-   https://www.w3schools.com/css/css_rwd_mediaqueries.asp
-3. **HTML Forms & Constraint Validation:**  
-   Adapted from *W3Schools HTML Forms & Input Types*  
-   https://www.w3schools.com/html/html_forms.asp
-4. **Fetch API & Asynchronous JavaScript:**  
-   Adapted from *W3Schools JavaScript Fetch API*  
-   https://www.w3schools.com/js/js_api_fetch.asp
-5. **DOM Manipulation & Nodes:**  
-   Adapted from *W3Schools JavaScript HTML DOM Nodes*  
-   https://www.w3schools.com/js/js_htmldom_nodes.asp
-6. **Web Accessibility Guidelines (WCAG):**  
-   Adapted from *W3Schools Web Accessibility Reference*  
-   https://www.w3schools.com/accessibility/
+## GitHub Pages
+
+Replace the corresponding files in the repository, keeping their filenames and relative paths. GitHub Pages must serve the branch containing the changes. A review branch or pull request does not update the live site until merged into the published branch.
+
+## Coursework
+
+Review and understand the code, explain your own changes, and follow your module's AI-use rules. Tutorial references identify learning resources; they do not establish an assessment grade or full accessibility compliance.
